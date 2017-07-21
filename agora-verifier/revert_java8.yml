@@ -13,10 +13,22 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with agora-dev-box.  If not, see <http://www.gnu.org/licenses/>.
 
+
 ---
-- name: AgoraVerifier, Reinstalling java 8
-  sudo: true
-  action: apt pkg={{item}} state=installed
+- name: AgoraVerifier, Removing OpenJDK 7 to make Oracle JDK 8 as default
+  become: true
+  action: apt pkg={{item}} state=absent
   with_items:
-    - oracle-java8-set-default
-    - oracle-java8-installer
+    - openjdk-7-jdk
+
+- name: AgoraVerifier, settings OpenJDK 7 as default Java temporarily
+  become: true
+  alternatives:
+    name: java
+    path: /usr/lib/jvm/java-8-oracle/jre/bin/java
+
+- name: AgoraVerifier, settings OpenJDK 7 as default Javac temporarily
+  become: true
+  alternatives:
+    name: javac
+    path: /usr/lib/jvm/java-8-oracle/bin/javac

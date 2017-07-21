@@ -161,7 +161,7 @@ else
   # restore backup
   mkdir $POSTGRES_DATA_DIR
   tar -zxvf $BACKUP_DIR/base/$BASE_BACKUP_NAME/base.tar.gz -C $POSTGRES_DATA_DIR
-  cp $POSTGRES_CONFIG_DIR/recovery.conf $POSTGRES_DATA_DIR/recovery.conf
+  cp $POSTGRES_CONFIG_DIR/recovery.conf.copy $POSTGRES_DATA_DIR/recovery.conf
 
   # set backup date
   if [[ $# -ge 2 ]]; then
